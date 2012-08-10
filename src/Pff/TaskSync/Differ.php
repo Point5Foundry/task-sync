@@ -26,9 +26,8 @@ class Differ
                 $change = $this->findChangedProjects($client, $current_client);
                 if (count($change) > 0)
                 {
-                    $client->setSynced(false);
-                    $client->setProjects($change);
-                    $diff[] = $client;
+                    $current_client->setProjects($change);
+                    $diff[] = $current_client;
                     continue;
                 }
             } else {

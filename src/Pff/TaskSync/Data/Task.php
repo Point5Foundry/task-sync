@@ -6,9 +6,10 @@ class Task
 {
     private $id;
     private $name;
+    private $completed;
     private $synced;
 
-    public function __construct($id = null, $name = null, $synced = true)
+    public function __construct($id = null, $name = null, $completed = false, $synced = true)
     {
         $this->id = $id;
         $this->name = $name;
@@ -48,5 +49,15 @@ class Task
     public function getSynced()
     {
         return $this->synced;
+    }
+
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+    }
+
+    public function getCompleted()
+    {
+        return $this->completed;
     }
 }
