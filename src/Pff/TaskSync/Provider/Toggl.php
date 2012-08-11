@@ -218,6 +218,7 @@ class Toggl implements ProviderInterface
                     'id' => $client_id,
                 ),
                 'billable' => false,
+                'is_private' => false,
             )
         );
 
