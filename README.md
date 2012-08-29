@@ -12,8 +12,7 @@ the approach of trying to work with the best tool for each job.
 Todo
 ----
 
-1. Finish up the support in the current Providers
+1. Finish up the support for Asana (creation support needed)
 2. Add more Providers
-3. Complete support for syncing down to tasks (currently only supports syncing down to projects)
-4. Make a nice CLI and configuration to use.
-5. More documentation?
+3. Make a nice CLI and configuration to use.
+4. More documentation?

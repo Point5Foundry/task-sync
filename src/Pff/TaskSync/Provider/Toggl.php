@@ -239,7 +239,26 @@ class Toggl implements ProviderInterface
      */
     public function createTask($workspace_id, $client_id, $project_id, $name, $foreign_id = null)
     {
-        // TODO: Implement createTask() method.
+        $data = array(
+            'task' => array(
+                'name' => $name,
+                'workspace' => array(
+                    'id' => $workspace_id,
+                ),
+                'client' => array(
+                    'id' => $client_id,
+                ),
+                'project' => array(
+                    'id' => $project_id,
+                ),
+            )
+        );
+
+        $result = $this->request('tasks', $data, self::HTTP_POST);
+
+        $p = new Data\Project($result->data->id, $name);
+
+        return $p;
     }
 
 
