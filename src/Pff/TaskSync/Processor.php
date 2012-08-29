@@ -49,6 +49,9 @@ class Processor
             if ($client->getSynced() == false)
             {
                 $new_client = $this->to->createClient($workspace_id, $client->getName(), $client->getId());
+
+                // Just a note about the while loops: I think toggl has some tight api restrictions and I've seen
+                // calls fail but be successful the very next call. It's a hack but I don't have a better idea.
                 while ($new_client == false)
                 {
                     $new_client = $this->to->createClient($workspace_id, $client->getName(), $client->getId());
@@ -58,10 +61,26 @@ class Processor
 
             foreach($client->getProjects() as $project)
             {
-                $new_project = $this->to->createProject($workspace_id, $client_id, $project->getName(), $project->getId());
-                while ($new_project == false)
+                $project_id = $project->getId();
+                if ($project->getSynced() == false)
                 {
                     $new_project = $this->to->createProject($workspace_id, $client_id, $project->getName(), $project->getId());
+                    while ($new_project == false)
+                    {
+                        $new_project = $this->to->createProject($workspace_id, $client_id, $project->getName(), $project->getId());
+                    }
+                    $project_id = $new_project->getId();
+                }
+
+                foreach($project->getTasks() as $task)
+                {
+                    if ($task->getSynced() == false)
+                    {
+                        $new_task = $this->to->createTask($workspace_id, $client_id, $project_id, $task->getName(), $task->getId());
+                        while ($new_task == false) {
+                            $new_task = $this->to->createTask($workspace_id, $client_id, $project_id, $task->getName(), $task->getId());
+                        }
+                    }
                 }
             }
         }
